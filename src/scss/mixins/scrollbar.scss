@@ -1,0 +1,39 @@
+@mixin scrollbar {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    width: $scrollbar-width;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-400;
+
+    &:hover {
+      background-color: $secondary-300;
+    }
+
+    &:active {
+      background-color: $secondary-200;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    scrollbar-color: $secondary-400 transparent;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+}

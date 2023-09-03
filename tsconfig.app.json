@@ -1,0 +1,28 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": false,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "public/*": ["public/*"],
+      "src/*": ["src/*"],
+      "assets/*": ["src/assets/*"],
+      "boot/*": ["src/boot/*"],
+      "components/*": ["src/components/*"],
+      // "custom-types/*": ["src/custom-types/*"],
+      "custom-types": ["src/custom-types/index.ts"],
+      "mock-data": ["src/mock-data/index.ts"],
+      "scss/*": ["src/scss/*"],
+      "layouts/*": ["src/layouts/*"],
+      "pages/*": ["src/pages/*"],
+      "router/*": ["src/router/*"],
+      "stores/*": ["src/stores/*"],
+      "utils/*": ["src/utils/*"]
+    }
+  }
+}
