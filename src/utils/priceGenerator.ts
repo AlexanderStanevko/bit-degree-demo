@@ -2,8 +2,8 @@ import { PriceIndicators } from 'custom-types'
 
 const priceDataCache: Record<number, PriceIndicators> = {}
 
-export const generatePricesForTimeframe = (timeframe: number): PriceIndicators => {
-  if (priceDataCache[timeframe]) {
+export const generatePricesForTimeframe = (timeframe: number, forceUpdate: boolean = false): PriceIndicators => {
+  if (!forceUpdate && priceDataCache[timeframe]) {
     return priceDataCache[timeframe]
   }
 

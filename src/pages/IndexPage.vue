@@ -13,7 +13,7 @@
             <List :list="gasTrackerList" :countdown="countdown" />
           </div>
           <div class="col-12 col-lg-6 ml-lg-4">
-            <PriceChart />
+            <PriceChart v-model="selectedTimeframe" :chart-dates="chartDates" :chart-prices="chartPrices" />
           </div>
         </div>
       </template>
@@ -36,7 +36,7 @@ import List from 'components/GasTracker/List.vue'
 import PriceChart from 'components/GasTracker/PriceChart.vue'
 import NetworkSwitcher from 'components/GasTracker/NetworkSwitcher.vue'
 import { Nullable } from 'utils/nullable'
-import { NetworkItem } from 'custom-types'
+import { NetworkItem, PriceIndicators } from 'custom-types'
 
 const COUNT_DOWN_VALUE = 15
 const INTERVAL_TIME = 1000
@@ -55,7 +55,8 @@ export default defineComponent({
     const gasTrackerStore = useGasTrackerStore()
     const isLoading = ref<boolean>(false)
     const isFirstLoad = ref<boolean>(true)
-    const countdown = ref<number>(15)
+    const countdown = ref<number>(COUNT_DOWN_VALUE)
+    const selectedTimeframe = ref<number>(7)
 
     const networks = ref<NetworkItem[]>([
       { value: 'eth', label: 'Ethereum', id: '1' },
@@ -65,6 +66,8 @@ export default defineComponent({
     const initialNetwork = ref<NetworkItem>(networks.value[0])
 
     const gasTrackerList = computed(() => gasTrackerStore.getListOfItems || [])
+    const chartPrices = computed<Nullable<PriceIndicators>>(() => gasTrackerStore.getPrices || null)
+    const chartDates = computed<number[]>(() => gasTrackerStore.getDates || [])
 
     const receiveGasTrackerInfo = async () => {
       try {
@@ -83,25 +86,50 @@ export default defineComponent({
       }
     };
 
-    const updateCountdown = async () => {
-      countdown.value--
-      if (countdown.value === 0) {
-        await receiveGasTrackerInfo()
-        countdown.value = COUNT_DOWN_VALUE
+    const receveChartData = async () => {
+      try {
+        if (isFirstLoad.value) {
+          isLoading.value = true;
+        }
+
+        await gasTrackerStore.updateChartInfo(selectedTimeframe.value);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        if (isFirstLoad.value) {
+          isLoading.value = false;
+          isFirstLoad.value = false;
+        }
       }
     }
+
+    const updateAllTheData = async () => {
+      await receiveGasTrackerInfo()
+      await receveChartData()
+    }
+
+    const updateCountdown = async () => {
+      countdown.value--
+      if (countdown.value <= 0) {
+        clearInterval(timer as TimerType)
+        await updateAllTheData()
+        countdown.value = COUNT_DOWN_VALUE
+        timer = setInterval(updateCountdown, INTERVAL_TIME)
+      }
+    }
+
 
     watch(
       () => initialNetwork.value,
       async () => {
         countdown.value = COUNT_DOWN_VALUE
-        await receiveGasTrackerInfo()
+        await updateAllTheData()
       }
     )
 
     onMounted(async () => {
       timer = setInterval(updateCountdown, INTERVAL_TIME)
-      await receiveGasTrackerInfo()
+      await updateAllTheData()
     })
 
     onUnmounted(() => {
@@ -116,6 +144,9 @@ export default defineComponent({
       countdown,
       initialNetwork,
       networks,
+      chartPrices,
+      chartDates,
+      selectedTimeframe,
     }
   },
 })
