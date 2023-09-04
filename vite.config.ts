@@ -2,10 +2,16 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const isProduction = process.env.NODE_ENV === 'production'
+const BASE_URL = isProduction ? '/bit-degree-demo/' : '/'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/bit-degree-demo/',
+  base: BASE_URL,
   plugins: [
     vue(),
   ],

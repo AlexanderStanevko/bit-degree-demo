@@ -22,6 +22,10 @@
 <script lang="ts">
 import { PropType, defineComponent, computed } from 'vue'
 import { GasTrackerListItem } from 'custom-types'
+import smileLow from 'src/assets/smile3.webp';
+import smileAverage from 'src/assets/smile2.webp';
+import smileHigh from 'src/assets/smile1.webp';
+
 
 export default defineComponent({
   name: 'GasTrackerItemList',
@@ -50,9 +54,9 @@ export default defineComponent({
 
     const smilePath = computed(() => {
       const smilePaths: Record<string, string> = {
-        'Low': 'src/assets/smile3.webp',
-        'Average': 'src/assets/smile2.webp',
-        'High': 'src/assets/smile1.webp',
+        'Low': smileLow,
+        'Average': smileAverage,
+        'High': smileHigh,
       }
       return smilePaths[props.item.title]
     })
