@@ -1,6 +1,12 @@
 import { PriceIndicators } from 'custom-types'
 
+const priceDataCache: Record<number, PriceIndicators> = {}
+
 export const generatePricesForTimeframe = (timeframe: number): PriceIndicators => {
+  if (priceDataCache[timeframe]) {
+    return priceDataCache[timeframe]
+  }
+
   const prices: PriceIndicators = {
     low: [],
     average: [],
@@ -12,6 +18,7 @@ export const generatePricesForTimeframe = (timeframe: number): PriceIndicators =
     prices.average.push(parseFloat((Math.random() * 50 + 50).toFixed(2)))
     prices.high.push(parseFloat((Math.random() * 50 + 100).toFixed(2)))
   }
+  priceDataCache[timeframe] = prices
 
-  return prices;
+  return prices
 }

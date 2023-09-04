@@ -13,6 +13,7 @@ import { generatePricesForTimeframe } from 'utils/priceGenerator'
 import { Nullable } from 'utils/nullable'
 import ApexCharts from 'apexcharts'
 import TimeFrameSwitcher from 'components/GasTracker/TimeFrameSwitcher.vue'
+import { PriceIndicators } from 'custom-types'
 
 export default defineComponent({
   components: {
@@ -22,6 +23,7 @@ export default defineComponent({
   setup() {
     const selectedTimeframe = ref(7)
     const chart = ref<Nullable<ApexCharts>>(null)
+
     const prices = generatePricesForTimeframe(selectedTimeframe.value)
     const dates = generateDatesForTimeframe(selectedTimeframe.value)
 
@@ -76,6 +78,8 @@ export default defineComponent({
       series.value[2].data = newPrices.high.map((price, index) => [newDates[index], price])
       chartOptions.value.xaxis.categories = newDates
     }
+
+
 
     watch(
       () => selectedTimeframe.value,
