@@ -13,7 +13,7 @@
       <div class="d-flex flex-column flex-md-row justify-content-between h-75 gap__10">
         <template v-for="(item, index) in list" :key="`${item.title}__${index}`">
           <div class="my-2 my-md-0">
-            <ItemList :item="item" />
+            <GasTrackerItemList :item="item" />
           </div>
         </template>
       </div>
@@ -23,13 +23,13 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref } from 'vue'
-import ItemList from 'components/GasTracker/ItemList.vue'
+import GasTrackerItemList from 'components/GasTracker/GasTrackerItemList.vue'
 import { GasTrackerListItem } from 'custom-types'
 
 export default defineComponent({
-  name: 'List',
+  name: 'GasTrackerList',
   components: {
-    ItemList,
+    GasTrackerItemList,
   },
   props: {
     list: {
@@ -39,7 +39,7 @@ export default defineComponent({
     countdown: {
       type: Number,
       default: 0,
-    }
+    },
   },
   setup() {
     const currentDate = ref<string>(new Date().toUTCString())
@@ -51,7 +51,7 @@ export default defineComponent({
     return {
       currentDate,
     }
-  }
+  },
 })
 </script>
 

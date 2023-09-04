@@ -11,7 +11,7 @@ export const generatePricesForTimeframe = (timeframe: number, forceUpdate: boole
     low: [],
     average: [],
     high: [],
-  };
+  }
 
   for (let i = 0; i < timeframe; i++) {
     prices.low.push(parseFloat((Math.random() * 50).toFixed(2)))

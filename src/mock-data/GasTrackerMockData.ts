@@ -10,11 +10,11 @@ const generateGasTrackerItem = (title: string): GasTrackerListItem => {
     estimatedDuration: getRandomInt(30, 180),
     price: getRandomFloat(0.1, 0.99, 2),
     statusDescription: 'gwei',
-  };
+  }
 }
 
 export const GasTrackerMockData = (): GasTrackerListItem[] => [
   generateGasTrackerItem('Low'),
   generateGasTrackerItem('Average'),
   generateGasTrackerItem('High'),
-];
+]

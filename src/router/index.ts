@@ -19,7 +19,7 @@ const router = createRouter({
       name: 'ErrorPage',
       component: () => import('pages/ErrorNotFound.vue'),
     },
-  ]
+  ],
 })
 
 export default router

@@ -24,12 +24,12 @@ import { PropType, defineComponent, computed } from 'vue'
 import { GasTrackerListItem } from 'custom-types'
 
 export default defineComponent({
-  name: 'ItemList',
+  name: 'GasTrackerItemList',
   props: {
     item: {
       type: Object as PropType<GasTrackerListItem>,
       default: () => { },
-    }
+    },
   },
   setup(props) {
     const formattedTime = computed(() => {
@@ -62,7 +62,7 @@ export default defineComponent({
       dynamicStatusClass,
       smilePath,
     }
-  }
+  },
 })
 </script>
 

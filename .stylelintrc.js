@@ -4,7 +4,7 @@ module.exports = {
     'stylelint-config-recommended-vue/scss',
     'stylelint-config-rational-order',
   ],
-  plugin: [
+  plugins: [
     'stylelint-order',
     'stylelint-config-rational-order/plugin',
   ],

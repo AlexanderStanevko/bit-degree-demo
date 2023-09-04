@@ -81,7 +81,7 @@ export default defineComponent({
               return new Date(timestamp).toLocaleDateString('en-US', {
                 day: 'numeric',
                 month: 'short',
-              });
+              })
             }
             return value
           },
@@ -103,27 +103,27 @@ export default defineComponent({
     watch(
       [
         () => props.chartPrices,
-        () => props.chartDates
+        () => props.chartDates,
       ],
       ([newPrices, newDates]) => {
         if (newPrices && newDates) {
           series.value = [
             {
               name: 'Low',
-              data: newPrices.low.map((price, index) => [newDates[index], price])
+              data: newPrices.low.map((price, index) => [newDates[index], price]),
             },
             {
               name: 'Average',
-              data: newPrices.average.map((price, index) => [newDates[index], price])
+              data: newPrices.average.map((price, index) => [newDates[index], price]),
             },
             {
               name: 'High',
-              data: newPrices.high.map((price, index) => [newDates[index], price])
-            }
-          ];
+              data: newPrices.high.map((price, index) => [newDates[index], price]),
+            },
+          ]
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     return {
@@ -132,9 +132,9 @@ export default defineComponent({
       chartOptions,
       chart,
       updateTimeframe,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

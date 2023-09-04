@@ -37,7 +37,7 @@ export const useGasTrackerStore = defineStore({
     async receiveGasTrackerInfo() {
       const data = await new Promise<GasTrackerListItem[]>(resolve => {
         setTimeout(() => {
-          resolve(GasTrackerMockData());
+          resolve(GasTrackerMockData())
         }, LOADING_TIME)
       })
 
@@ -57,7 +57,7 @@ export const useGasTrackerStore = defineStore({
         }),
         new Promise<number[]>(resolve => {
           resolve(generateDatesForTimeframe(timeframe))
-        })
+        }),
       ])
 
       if (prices && dates.length) {

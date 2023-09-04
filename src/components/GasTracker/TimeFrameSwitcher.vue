@@ -16,8 +16,8 @@ export default defineComponent({
   props: {
     modelValue: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {

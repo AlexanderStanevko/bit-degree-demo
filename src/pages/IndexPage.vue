@@ -10,7 +10,7 @@
         </div>
         <div class="d-flex flex-column flex-lg-row justify-content-between w-100 gap__10">
           <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-            <List :list="gasTrackerList" :countdown="countdown" />
+            <GasTrackerList :list="gasTrackerList" :countdown="countdown" />
           </div>
           <div class="col-12 col-lg-6 ml-lg-4">
             <PriceChart v-model="selectedTimeframe" :chart-dates="chartDates" :chart-prices="chartPrices" />
@@ -32,7 +32,7 @@ import {
 } from 'vue'
 import AppSpinner from 'components/App/AppSpinner.vue'
 import { useGasTrackerStore } from 'stores/GasTrackerStore'
-import List from 'components/GasTracker/List.vue'
+import GasTrackerList from 'components/GasTracker/GasTrackerList.vue'
 import PriceChart from 'components/GasTracker/PriceChart.vue'
 import NetworkSwitcher from 'components/GasTracker/NetworkSwitcher.vue'
 import { Nullable } from 'utils/nullable'
@@ -47,7 +47,7 @@ export default defineComponent({
   name: "IndexPage",
   components: {
     AppSpinner,
-    List,
+    GasTrackerList,
     PriceChart,
     NetworkSwitcher,
   },
@@ -72,33 +72,33 @@ export default defineComponent({
     const receiveGasTrackerInfo = async () => {
       try {
         if (isFirstLoad.value) {
-          isLoading.value = true;
+          isLoading.value = true
         }
 
-        await gasTrackerStore.receiveGasTrackerInfo();
+        await gasTrackerStore.receiveGasTrackerInfo()
       } catch (e) {
-        console.log(e);
+        console.log(e)
       } finally {
         if (isFirstLoad.value) {
-          isLoading.value = false;
-          isFirstLoad.value = false;
+          isLoading.value = false
+          isFirstLoad.value = false
         }
       }
-    };
+    }
 
     const receveChartData = async () => {
       try {
         if (isFirstLoad.value) {
-          isLoading.value = true;
+          isLoading.value = true
         }
 
-        await gasTrackerStore.updateChartInfo(selectedTimeframe.value);
+        await gasTrackerStore.updateChartInfo(selectedTimeframe.value)
       } catch (e) {
-        console.log(e);
+        console.log(e)
       } finally {
         if (isFirstLoad.value) {
-          isLoading.value = false;
-          isFirstLoad.value = false;
+          isLoading.value = false
+          isFirstLoad.value = false
         }
       }
     }
@@ -124,7 +124,7 @@ export default defineComponent({
       async () => {
         countdown.value = COUNT_DOWN_VALUE
         await updateAllTheData()
-      }
+      },
     )
 
     onMounted(async () => {

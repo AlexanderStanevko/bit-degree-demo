@@ -22,7 +22,7 @@ export default defineComponent({
     networks: {
       type: Array as PropType<NetworkItem[]>,
       default: () => [],
-    }
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
@@ -32,8 +32,8 @@ export default defineComponent({
     })
 
     const updateModelValue = (network: NetworkItem) => {
-      internalValue.value = network;
-    };
+      internalValue.value = network
+    }
 
     return {
       internalValue,
