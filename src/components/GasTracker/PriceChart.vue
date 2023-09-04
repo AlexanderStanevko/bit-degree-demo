@@ -18,6 +18,7 @@ import { generateDatesForTimeframe } from 'utils/dateGenerator'
 import { generatePricesForTimeframe } from 'utils/priceGenerator'
 import { Nullable } from 'utils/nullable'
 import ApexCharts from 'apexcharts'
+import { ApexOptions } from 'apexcharts'
 import TimeFrameSwitcher from 'components/GasTracker/TimeFrameSwitcher.vue'
 import { PriceIndicators } from 'custom-types'
 
@@ -57,7 +58,7 @@ export default defineComponent({
     const series = ref<SeriesItem[]>([])
     const chart = ref<Nullable<ApexCharts>>(null)
 
-    const chartOptions = ref({
+    const chartOptions = ref<Nullable<ApexOptions>>({
       chart: {
         height: 350,
         type: 'line',
@@ -75,11 +76,14 @@ export default defineComponent({
       xaxis: {
         type: 'datetime',
         labels: {
-          formatter: function (value: number, timestamp: number) {
-            return new Date(timestamp).toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'short',
-            })
+          formatter: function (value: string, timestamp?: number) {
+            if (timestamp) {
+              return new Date(timestamp).toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'short',
+              });
+            }
+            return value
           },
         },
       },
@@ -91,7 +95,9 @@ export default defineComponent({
       series.value[0].data = newPrices.low.map((price, index) => [newDates[index], price])
       series.value[1].data = newPrices.average.map((price, index) => [newDates[index], price])
       series.value[2].data = newPrices.high.map((price, index) => [newDates[index], price])
-      chartOptions.value.xaxis.categories = newDates
+      if (chartOptions.value && chartOptions.value.xaxis) {
+        chartOptions.value.xaxis.categories = newDates
+      }
     }
 
     watch(
