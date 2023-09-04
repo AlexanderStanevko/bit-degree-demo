@@ -1,8 +1,8 @@
 <template>
-  <div 
-    class="spinner-border" 
-    :class="spinnerColor" 
-    :style="dimensions" 
+  <div
+    class="spinner-border"
+    :class="spinnerColor"
+    :style="dimensions"
     role="status"
   >
     <span class="visually-hidden" />

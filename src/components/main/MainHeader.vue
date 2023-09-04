@@ -14,7 +14,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main-header {
-  background-color: $light;
   height: 60px;
+  background-color: $light;
 }
 </style>

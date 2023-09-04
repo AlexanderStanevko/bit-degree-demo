@@ -69,6 +69,5 @@ export default defineComponent({
 <style lang="scss" scoped>
 .status-card {
   border: 1px solid $grey-400;
-  // border-radius: 25px;
 }
 </style>

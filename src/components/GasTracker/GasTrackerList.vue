@@ -57,11 +57,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .item-list {
-  border: 1px solid $grey-400;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  border: 1px solid $grey-400;
 }
 </style>
